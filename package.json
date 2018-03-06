@@ -1,0 +1,11 @@
+{
+  "name": "apollo-link-cache",
+  "version": "0.1.0",
+  "description": "\"Apollo link to access cache\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kiran Abburi",
+  "license": "MIT"
+}
