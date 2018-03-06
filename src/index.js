@@ -17,7 +17,6 @@ import {
 export const createCacheLink = (
   cacheLinkConfig = { resolvers: {} },
 ) => {
-  // console.log(cacheLinkConfig, 'cacheLinkConfig')
   const { resolvers } = cacheLinkConfig;
 
   return new class CacheLink extends ApolloLink {
@@ -27,22 +26,17 @@ export const createCacheLink = (
       forward,
     ) {
       const isCache = hasDirectives(['cache'], operation.query);
-      // console.log('isCache!!!', isCache)
       if (!isCache) return forward(operation);
 
       const server = removeCacheSetsFromDocument(operation.query);
 
       const resolver = (fieldName, rootValue = {}, args, context, info) => {
-        // console.log(fieldName, rootValue, context, 'context')
         const fieldValue = rootValue[fieldName];
 
         if (fieldValue !== undefined) return fieldValue;
         const resolve = resolvers[fieldName];
-        // console.log('resolve', resolve)
         if (resolve) {
-          // console.log('before resolve')
           const val = resolve(rootValue, args, context, info);
-          // console.log('val', val)
           return val
         }
       };
